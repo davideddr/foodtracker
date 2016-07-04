@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row up">
+    <h1>Listing foods</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 center table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Meal</th>
+            <th class="ldc">Food &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+                            Quantity &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                            Units</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @meals.each do |meal| %>
+          <tr>
+            <td><%= meal.name %></td>
+            <td class="int">
+              <table class="table interna">
+                <tbody>
+                  <% meal.foods.each do |food| %>
+                  <tr class="ontr">
+                    <td class="int2"><%= food.name %></td>
+                    <td class="int2"><%= food.quantity %></td>
+                    <td class="int2"><%= food.units %></td>
+                  </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </td>
+            <td><%= meal.description %></td>
+            <td class="command"><%= link_to 'Edit', edit_meal_path(meal), :class=>"btn btn-sm btn-primary"%></td>
+            <td class="command"><%= link_to 'Destroy', meal_path(meal),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              remote: true,
+              :class=>"btn btn-sm btn-danger"
+              %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('a[data-method="delete"]').bind('ajax:complete',function(evt,data,status,xhr){
+        $(this).closest('tr').fadeOut();
+      })
+    });
+  </script>
+
+
+  

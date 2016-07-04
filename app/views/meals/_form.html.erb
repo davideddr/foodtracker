@@ -1,0 +1,22 @@
+<%= simple_nested_form_for @meal, html: { class: 'form-horizontal' } do |f| %>
+  <% if @meal.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@meal.errors.count, "error") %> prohibited this meal from being saved:
+        </h2>
+        <ul>
+          <% @meal.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <%= f.input :name, collection: Meal::NAME, include_blank: "Select the name of the meal" %>
+  <%= f.simple_fields_for :foods do |builder| %>
+    <%= render 'food_fields', f: builder%>
+  <% end %>
+  <%= f.link_to_add "Add food", :foods  , :class => 'btn btn-primary'%>
+  <%= f.input :description, as: :text %>
+  <%= f.submit "Save meal" , :class => 'btn btn-success'%>
+  <p></p>
+<% end %>

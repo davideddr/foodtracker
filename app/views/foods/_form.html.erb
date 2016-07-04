@@ -1,0 +1,21 @@
+<%= simple_nested_form_for @food, html: { class: 'form-horizontal' } do |f|%>
+<% if @food.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@food.errors.count, "error") %> prohibited
+    this food from being saved:
+  </h2>
+  <ul>
+    <% @food.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<%= f.input :name%>
+<%= f.input :quantity, as: :integer, input_html: { min: '0', step: 'any' } %>
+<%= f.input :units, collection: Food::UNITS, include_blank: "Enter the unit of measure" %>
+<%= f.submit "Save food" , :class => 'btn btn-success'%>
+
+<% end %>
+

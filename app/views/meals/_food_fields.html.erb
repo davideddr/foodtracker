@@ -1,0 +1,5 @@
+<%= f.input :name, label: "Name of the food"%>
+<%= f.input :quantity, as: :integer, input_html: { min: '0', step: 'any' } %>
+<%= f.input :units, collection: Food::UNITS, include_blank: "Enter the unit of measure" %>
+<%= f.link_to_remove "Remove this food" , :class => 'btn btn-sm btn-danger'%>
+<p></p>
